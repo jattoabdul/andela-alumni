@@ -12,6 +12,7 @@ import {
     // DropdownMenu,
     // DropdownItem
 } from 'reactstrap';
+import { NavLink as RRNavLink } from 'react-router-dom';
 import './Navigation.scss';
 
 
@@ -25,17 +26,17 @@ const Navigation = props => {
                 <NavbarToggler onClick={props.toggle} />
                 <Collapse isOpen={props.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <NavLink href="/talents">Talents</NavLink>
+                        <NavItem >
+                            <NavLink to="/talents" activeClassName="active" tag={RRNavLink}>Talents</NavLink>
+                        </NavItem>
+                        <NavItem >
+                            <NavLink to="/partners" activeClassName="active" tag={RRNavLink}>Partners</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/partners">Partners</NavLink>
+                            <NavLink to="/general" activeClassName="active" tag={RRNavLink}>General</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="/general">General</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="/connections">Connections</NavLink>
+                            <NavLink to="/connections" activeClassName="active" tag={RRNavLink}>Connections</NavLink>
                         </NavItem>
                         {/**<UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>

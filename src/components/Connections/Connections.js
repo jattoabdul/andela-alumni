@@ -115,7 +115,7 @@ class Connections extends Component {
                 <div className="guest-list-container">
                     <div className="guest-list-top-section">
                         <div className="guest-list-table-title">
-                            <span className="table-title-text">All General Request</span>
+                            <span className="table-title-text">All Connections</span>
                             <div className="line">
                                 <span className="long-line"></span>
                                 <span className="short-line"></span>
