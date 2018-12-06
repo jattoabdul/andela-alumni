@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Talents.scss';
+import './General.scss';
 import { Navigation } from '../Partials/Navigation';
 import { Footer } from '../Partials/Footer';
 import { Pagination } from '../Partials/Pagination';
@@ -10,10 +10,10 @@ import {
     Label
 } from 'reactstrap';
 import {
-    fetchTalents
-  } from '../../actions/talentsAction';
+    fetchGeneralRequests
+  } from '../../actions/generalAction';
 
-class Talents extends Component {
+class General extends Component {
     constructor(props) {
         super(props);
 
@@ -21,10 +21,10 @@ class Talents extends Component {
             isNavDropdownOpen: false,
             isModalOpen: false,
             actionName: '',
-            talentsPerPage: 10,
+            generalRequestPerPage: 10,
             currentPage: 1,
             filterText: '',
-            singleGuest: {}
+            singleRequest: {}
         };
     }
 
@@ -34,11 +34,11 @@ class Talents extends Component {
         });
     }
 
-    toggle = (action='', guest={}) => {
+    toggle = (action='', request={}) => {
         this.setState({
             isModalOpen: !this.state.isModalOpen,
             actionName: action,
-            singleGuest: guest
+            singleRequest: request
           });
     }
 
@@ -70,11 +70,11 @@ class Talents extends Component {
     }
 
     handleRefresh = () => {
-        this.props.fetchTalents();
+        this.props.fetchGeneralRequests();
     }
 
     componentDidMount() {
-        this.props.fetchTalents();
+        this.props.fetchGeneralRequests();
         this.interval = setInterval(this.handleRefresh, 180000);
     }
 
@@ -83,22 +83,24 @@ class Talents extends Component {
     }
 
     render() {
-        const { talentsReducer: { allTalents, isFetchingTalents, meta } } = this.props;
-        const { currentPage, talentsPerPage, filterText } = this.state;
-        const indexOfLastTalent = currentPage * talentsPerPage;
-        const indexOfFirstTalent = indexOfLastTalent - talentsPerPage;
-        const allFilteredTalents = allTalents.filter(eachTalent => eachTalent.name.toLowerCase().indexOf(filterText) !== -1 || eachTalent.user.firstName.toLowerCase().indexOf(filterText) !== -1)
-        const currentTalents = allFilteredTalents.slice(indexOfFirstTalent, indexOfLastTalent);
-        let totalPages = Math.ceil((allFilteredTalents.length)/(talentsPerPage));
+        const { generalReducer: { allGeneralRequests, isFetchingGeneralRequests, meta } } = this.props;
+        const { currentPage, generalRequestPerPage, filterText } = this.state;
+        const indexOfLastRequest = currentPage * generalRequestPerPage;
+        const indexOfFirstRequest = indexOfLastRequest - generalRequestPerPage;
+        const allFilteredRequests = allGeneralRequests.filter(eachRequest => {
+            return (eachRequest.info && eachRequest.info.toLowerCase().indexOf(filterText) !== -1) || (eachRequest.user && eachRequest.user.firstName.toLowerCase().indexOf(filterText) !== -1)
+        })
+        const currentRequests = allFilteredRequests.slice(indexOfFirstRequest, indexOfLastRequest);
+        let totalPages = Math.ceil((allFilteredRequests.length)/(generalRequestPerPage));
 
-        const renderTalents = currentTalents.map((talent, index) => {
-            return (<tr id={talent.id} key={index}>
+        const renderRequest = currentRequests.map((request, index) => {
+            return (<tr id={request.id} key={index}>
                     <th scope="row">{index + 1}</th>
-                    <td>{talent.name}</td>
-                    <td>{talent.role}</td>
-                    <td>{talent.url}</td>
-                    <td>{talent.user.firstName} {talent.user.lastName}</td>
-                    <td>{talent.user.email}</td>
+                    <td>{request.name}</td>
+                    <td>{request.role}</td>
+                    <td>{request.url}</td>
+                    <td>{request.user.firstName} {request.user.lastName}</td>
+                    <td>{request.user.email}</td>
                 </tr>);
           });
 
@@ -113,7 +115,7 @@ class Talents extends Component {
                 <div className="guest-list-container">
                     <div className="guest-list-top-section">
                         <div className="guest-list-table-title">
-                            <span className="table-title-text">All Talents</span>
+                            <span className="table-title-text">All General Request</span>
                             <div className="line">
                                 <span className="long-line"></span>
                                 <span className="short-line"></span>
@@ -122,7 +124,7 @@ class Talents extends Component {
                         <div className="add-guest-container">
                             <div className="refresh-guest-btn" onClick={this.handleRefresh}>
                                 <span>Refresh</span>
-                                {isFetchingTalents ? <div className="loader absolute"></div> : ''}
+                                {isFetchingGeneralRequests ? <div className="loader absolute"></div> : ''}
                             </div>
                         </div>
                     </div>
@@ -134,7 +136,7 @@ class Talents extends Component {
                             </InputGroup>
                             <InputGroup className="no-of-record-filter">
                                 <Label for="no_of_record">No. of Records:</Label>
-                                <Input type="select" name="select" id="no_of_record" value={this.state.talentsPerPage} onChange={this.handleOnChangeNoPerPage}>
+                                <Input type="select" name="select" id="no_of_record" value={this.state.generalRequestPerPage} onChange={this.handleOnChangeNoPerPage}>
                                 <option value="10">10</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
@@ -155,11 +157,11 @@ class Talents extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {(parseInt(currentTalents.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Guest Records</td></tr> : renderTalents)}
+                                {(parseInt(currentRequests.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Guest Records</td></tr> : renderRequest)}
                             </tbody>
                         </table>
                         {(
-                            parseInt(currentTalents.length, 10) === 0 ?
+                            parseInt(currentRequests.length, 10) === 0 ?
                             '' :
                             <Pagination
                                 handlePageClick={this.handlePageClick}
@@ -179,7 +181,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-    fetchTalents,
+    fetchGeneralRequests,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Talents);
+export default connect(mapStateToProps, mapDispatchToProps)(General);

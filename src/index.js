@@ -13,6 +13,8 @@ import './index.scss';
 import { Login } from './components/Auth';
 import { Talents } from './components/Talents';
 import { Partners } from './components/Partners';
+import { General } from './components/General';
+import { Connections } from './components/Connections';
 import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css'; 
@@ -39,6 +41,14 @@ render(
             <Route
                 path="/partners"
                 component={Partners}
+            />
+            <Route
+                path="/general"
+                component={General}
+            />
+            <Route
+                path="/connections"
+                component={Connections}
             />
         </Switch>
         </Router>

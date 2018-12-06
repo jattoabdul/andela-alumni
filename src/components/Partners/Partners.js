@@ -10,8 +10,8 @@ import {
     Label
 } from 'reactstrap';
 import {
-    fetchTalents
-  } from '../../actions/talentsAction';
+    fetchPartners
+  } from '../../actions/partnersAction';
 
 class Partners extends Component {
     constructor(props) {
@@ -21,10 +21,10 @@ class Partners extends Component {
             isNavDropdownOpen: false,
             isModalOpen: false,
             actionName: '',
-            talentsPerPage: 10,
+            partnersPerPage: 10,
             currentPage: 1,
             filterText: '',
-            singleGuest: {}
+            singlePartner: {}
         };
     }
 
@@ -34,11 +34,11 @@ class Partners extends Component {
         });
     }
 
-    toggle = (action='', guest={}) => {
+    toggle = (action='', partner={}) => {
         this.setState({
             isModalOpen: !this.state.isModalOpen,
             actionName: action,
-            singleGuest: guest
+            singlePartner: partner
           });
     }
 
@@ -70,11 +70,11 @@ class Partners extends Component {
     }
 
     handleRefresh = () => {
-        this.props.fetchTalents();
+        this.props.fetchPartners();
     }
 
     componentDidMount() {
-        this.props.fetchTalents();
+        this.props.fetchPartners();
         this.interval = setInterval(this.handleRefresh, 180000);
     }
 
@@ -83,51 +83,22 @@ class Partners extends Component {
     }
 
     render() {
-        const { talentsReducer: { allTalents, isFetchingTalents, meta } } = this.props;
-        const { currentPage, talentsPerPage, filterText } = this.state;
-        const indexOfLastTalent = currentPage * talentsPerPage;
-        const indexOfFirstTalent = indexOfLastTalent - talentsPerPage;
-        const allFilteredTalents = allTalents.filter(eachTalent => eachTalent.name.toLowerCase().indexOf(filterText) !== -1 || eachTalent.user.firstName.toLowerCase().indexOf(filterText) !== -1)
-        const currentTalents = allFilteredTalents.slice(indexOfFirstTalent, indexOfLastTalent);
-        let totalPages = Math.ceil((allFilteredTalents.length)/(talentsPerPage));
+        const { partnersReducer: { allPartners, isFetchingPartners, meta } } = this.props;
+        const { currentPage, partnersPerPage, filterText } = this.state;
+        const indexOfLastPartner = currentPage * partnersPerPage;
+        const indexOfFirstPartner = indexOfLastPartner - partnersPerPage;
+        const allFilteredPartners = allPartners.filter(eachPartner => eachPartner.name.toLowerCase().indexOf(filterText) !== -1 || eachPartner.user.firstName.toLowerCase().indexOf(filterText) !== -1)
+        const currentPartners = allFilteredPartners.slice(indexOfFirstPartner, indexOfLastPartner);
+        let totalPages = Math.ceil((allFilteredPartners.length)/(partnersPerPage));
 
-        const displayCityName = (location) => {
-            let currentCity;
-            switch (location) {
-                case 'lagos':
-                    currentCity = 'Lagos'
-                    break;
-                case 'new-york':
-                    currentCity = 'New York'
-                    break;
-                case 'nairobi':
-                    currentCity = 'Nairobi'
-                    break;
-                case 'kampala':
-                    currentCity = 'Kampala'
-                    break;
-                case 'kigali':
-                    currentCity = 'Kigali'
-                    break;
-                case 'san-francisco':
-                    currentCity = 'San Francisco'
-                    break;
-                default:
-                    currentCity = 'Lagos'
-                    break;
-            }
-
-            return currentCity;
-        }
-
-        const renderTalents = currentTalents.map((talent, index) => {
-            return (<tr id={talent.id} key={index}>
+        const renderPartners = currentPartners.map((partner, index) => {
+            return (<tr id={partner.id} key={index}>
                     <th scope="row">{index + 1}</th>
-                    <td>{talent.name}</td>
-                    <td>{talent.role}</td>
-                    <td>{talent.url}</td>
-                    <td>{talent.user.firstName} {talent.user.lastName}</td>
-                    <td>{talent.user.email}</td>
+                    <td>{partner.name}</td>
+                    <td>{partner.role}</td>
+                    <td>{partner.url}</td>
+                    <td>{partner.user.firstName} {partner.user.lastName}</td>
+                    <td>{partner.user.email}</td>
                 </tr>);
           });
 
@@ -142,7 +113,7 @@ class Partners extends Component {
                 <div className="guest-list-container">
                     <div className="guest-list-top-section">
                         <div className="guest-list-table-title">
-                            <span className="table-title-text">All Talents</span>
+                            <span className="table-title-text">All Partners</span>
                             <div className="line">
                                 <span className="long-line"></span>
                                 <span className="short-line"></span>
@@ -151,7 +122,7 @@ class Partners extends Component {
                         <div className="add-guest-container">
                             <div className="refresh-guest-btn" onClick={this.handleRefresh}>
                                 <span>Refresh</span>
-                                {isFetchingTalents ? <div className="loader absolute"></div> : ''}
+                                {isFetchingPartners ? <div className="loader absolute"></div> : ''}
                             </div>
                         </div>
                     </div>
@@ -163,7 +134,7 @@ class Partners extends Component {
                             </InputGroup>
                             <InputGroup className="no-of-record-filter">
                                 <Label for="no_of_record">No. of Records:</Label>
-                                <Input type="select" name="select" id="no_of_record" value={this.state.talentsPerPage} onChange={this.handleOnChangeNoPerPage}>
+                                <Input type="select" name="select" id="no_of_record" value={this.state.partnersPerPage} onChange={this.handleOnChangeNoPerPage}>
                                 <option value="10">10</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
@@ -184,11 +155,11 @@ class Partners extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {(parseInt(currentTalents.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Guest Records</td></tr> : renderTalents)}
+                                {(parseInt(currentPartners.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Guest Records</td></tr> : renderPartners)}
                             </tbody>
                         </table>
                         {(
-                            parseInt(currentTalents.length, 10) === 0 ?
+                            parseInt(currentPartners.length, 10) === 0 ?
                             '' :
                             <Pagination
                                 handlePageClick={this.handlePageClick}
@@ -208,7 +179,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-    fetchTalents,
+    fetchPartners,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Partners);

@@ -1,0 +1,244 @@
+@import '../../globals/styles/base';
+
+.Dashboard {
+    font-family: "DINPro-Regular";
+    color: $andela-grey-text;
+    min-height: 100%;
+    margin: 0 0 -5rem 0;
+
+
+    .navigation-container {
+        width: 100%;
+        background-color: $andela-white;
+        box-shadow: 0 4px 12px -6px grey;
+        padding: 0 3rem;
+
+        @include mdm {
+            padding: 0 1rem;
+        }
+
+        @include smm {
+            padding: 0 .5rem;
+        }
+    }
+
+    .guest-list-container {
+        width: 100%;
+        padding: 2rem;
+        /* margin: 2rem 2rem 0 2rem; */
+        color: #525252;
+
+        .guest-list-top-section {
+            margin-bottom: 2rem;
+            height: 4rem;
+
+            .guest-list-table-title {
+                float: left;
+
+                .table-title-text {
+                    font-size: 1.5rem;
+                }
+
+                .line {
+                    width: fit-content;
+
+                    .long-line {
+                        width: 4rem;
+                        margin-right: 0.8rem;
+                        height: 0.3rem;
+                        border-radius: 0.3rem;
+                        background-color: $andela-blue;
+                        display: inline-block;
+                    }
+
+                    .short-line {
+                        width: 1rem;
+                        height: 0.3rem;
+                        border-radius: 0.3rem;
+                        background-color: $andela-blue;
+                        display: inline-block;
+                    }
+                }
+            }
+
+            .add-guest-container {
+                float: right;
+
+                .refresh-guest-btn {
+                    display: inline-block;
+                    position: relative;
+                    outline: none;
+                    -webkit-user-select: none;
+                    user-select: none;
+                    cursor: pointer;
+                    background-color: $andela-grey-light;
+                    color: $andela-white;
+                    box-shadow: 0 4px 10px 0 $andela-boxshadow-rgba-black;
+                    text-transform: capitalize;
+                    width: 10rem;
+                    height: 3rem;
+                    line-height: 1rem;
+                    text-align: center;
+                    border-radius: .3rem;
+                    padding: 1rem;
+                    margin-right: .5rem;
+
+                    .loader {
+                        border: 5px solid $andela-white;
+                        animation: App-logo-spin infinite 1s linear;
+                        border-top: 5px solid $andela-border-grey-light;
+                        border-radius: 50%;
+                        width: 2rem;
+                        height: 2rem;
+                        
+                        &.absolute {
+                            position: absolute;
+                            top: .5rem;
+                            right: .7rem;
+                        }
+                    }
+            
+                    @include smm {
+                        width: 7rem;
+                    }
+                }
+
+                .add-guest-btn {
+                    display: inline-block;
+                    position: relative;
+                    outline: none;
+                    -webkit-user-select: none;
+                    user-select: none;
+                    cursor: pointer;
+                    background-color: $andela-blue;
+                    color: $andela-white;
+                    box-shadow: 0 4px 10px 0 $andela-boxshadow-rgba-black;
+                    text-transform: capitalize;
+                    width: 10rem;
+                    height: 3rem;
+                    line-height: 1rem;
+                    text-align: center;
+                    border-radius: .3rem;
+                    padding: 1rem;
+
+                    @include smm {
+                        width: 8rem;
+                    }
+                }
+            }
+        }
+
+        .guest-list-table-section {
+            @include smm {
+                margin-top: 4rem;
+            }
+
+            .table-filters {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 1rem;
+
+                .search-filter {
+                    width: 25rem;
+                }
+
+                .no-of-record-filter {
+                    width: 10.5rem;
+                    margin-left: 1rem;
+                }
+
+                .location-filter {
+                    width: 15rem;
+                    margin-left: 1rem;
+                }
+
+                input, select {
+                    border-radius: .5rem;
+                    margin-left: .5rem;
+
+                    &:focus {
+                        box-shadow: none;
+                        outline: none;
+                        border-color: $search-input-border-color;
+                    }
+                }
+            }
+
+            .table {
+                text-align: center;
+
+                .tag-status {
+                    display: block;
+                }
+
+                .edit-icon {
+                    background-image: url("../../assets/tag.png");
+                    background-repeat: round;
+                    display: inline-block;
+                    height: 1.5rem;
+                    width: 1.5rem;
+                    margin-right: .5rem;
+                    cursor: pointer;
+                }
+
+                .remove-icon {
+                    background-image: url("../../assets/exit.png");
+                    background-repeat: round;
+                    display: inline-block;
+                    height: 1.5rem;
+                    width: 1.5rem;
+                    cursor: pointer;
+                }
+            }
+
+            .pagination {
+                display: flex;
+                padding-left: 0;
+                border-radius: .25rem;
+
+                li {
+                    display: list-item;
+
+                    &:first-child a {
+                        margin-left: 0;
+                        border-top-left-radius: .25rem;
+                        border-bottom-left-radius: .25rem;
+                    }
+
+                    &.break-me a {
+                        cursor: default;
+                        pointer-events: none;
+                        text-decoration: none;
+                    }
+                    
+                    a {
+                        cursor: pointer;
+                        position: relative;
+                        display: block;
+                        padding: .5rem .75rem;
+                        margin-left: -1px;
+                        line-height: 1.25;
+                        color: $andela-blue;
+                        background-color: $andela-white;
+                        border: 1px solid $andela-border-grey-light;
+                    }
+                }
+
+            }
+            
+        }
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        height: 5rem;
+    }
+
+}
+
+@keyframes App-logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
