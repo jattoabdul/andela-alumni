@@ -96,11 +96,11 @@ class General extends Component {
         const renderRequest = currentRequests.map((request, index) => {
             return (<tr id={request.id} key={index}>
                     <th scope="row">{index + 1}</th>
-                    <td>{request.name}</td>
-                    <td>{request.role}</td>
-                    <td>{request.url}</td>
+                    <td>{request.request_type}</td>
+                    <td>{request.info}</td>
                     <td>{request.user.firstName} {request.user.lastName}</td>
                     <td>{request.user.email}</td>
+                    <td>{request.timestamps.createdAt.datePrettyShort}</td>
                 </tr>);
           });
 
@@ -149,15 +149,15 @@ class General extends Component {
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Talent Name</th>
-                                    <th scope="col">Talent Role</th>
-                                    <th scope="col">Personal URL</th>
-                                    <th scope="col">Referal FullName</th>
-                                    <th scope="col">Referal Email</th>
+                                    <th scope="col">Request Type</th>
+                                    <th scope="col">Additional Info</th>
+                                    <th scope="col">User Full Name</th>
+                                    <th scope="col">User Email</th>
+                                    <th scope="col">Created At</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {(parseInt(currentRequests.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Guest Records</td></tr> : renderRequest)}
+                                {(parseInt(currentRequests.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Records</td></tr> : renderRequest)}
                             </tbody>
                         </table>
                         {(

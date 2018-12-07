@@ -99,6 +99,7 @@ class Talents extends Component {
                     <td>{talent.url}</td>
                     <td>{talent.user.firstName} {talent.user.lastName}</td>
                     <td>{talent.user.email}</td>
+                    <td>{talent.timestamps.createdAt.datePrettyShort}</td>
                 </tr>);
           });
 
@@ -150,12 +151,13 @@ class Talents extends Component {
                                     <th scope="col">Talent Name</th>
                                     <th scope="col">Talent Role</th>
                                     <th scope="col">Personal URL</th>
-                                    <th scope="col">Referal FullName</th>
-                                    <th scope="col">Referal Email</th>
+                                    <th scope="col">Referrer Full Name</th>
+                                    <th scope="col">Referrer Email</th>
+                                    <th scope="col">Created At</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {(parseInt(currentTalents.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Guest Records</td></tr> : renderTalents)}
+                                {(parseInt(currentTalents.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Records</td></tr> : renderTalents)}
                             </tbody>
                         </table>
                         {(

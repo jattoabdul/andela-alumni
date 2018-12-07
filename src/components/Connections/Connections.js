@@ -96,11 +96,14 @@ class Connections extends Component {
         const renderConnection = currentConnections.map((connection, index) => {
             return (<tr id={connection.id} key={index}>
                     <th scope="row">{index + 1}</th>
+                    <td>{connection.primary_person}</td>
+                    <td>{connection.backup}</td>
                     <td>{connection.andela}</td>
-                    <td>{connection.andela}</td>
-                    <td>{connection.andela}</td>
+                    <td>{connection.purpose}</td>
+                    <td>{connection.network.charAt(0).toUpperCase() + connection.network.slice(1)} Andela</td>
                     <td>{connection.user.firstName} {connection.user.lastName}</td>
                     <td>{connection.user.email}</td>
+                    <td>{connection.timestamps.createdAt.datePrettyShort}</td>
                 </tr>);
           });
 
@@ -149,15 +152,18 @@ class Connections extends Component {
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Talent Name</th>
-                                    <th scope="col">Talent Role</th>
-                                    <th scope="col">Personal URL</th>
-                                    <th scope="col">Referal FullName</th>
-                                    <th scope="col">Referal Email</th>
+                                    <th scope="col">Primary Person</th>
+                                    <th scope="col">Alternative Contact(bcakup)</th>
+                                    <th scope="col">Andelan</th>
+                                    <th scope="col">Purpose</th>
+                                    <th scope="col">Network</th>
+                                    <th scope="col">User Full Name</th>
+                                    <th scope="col">User Email</th>
+                                    <th scope="col">Created At</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {(parseInt(currentConnections.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Guest Records</td></tr> : renderConnection)}
+                                {(parseInt(currentConnections.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Records</td></tr> : renderConnection)}
                             </tbody>
                         </table>
                         {(

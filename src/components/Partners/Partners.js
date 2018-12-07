@@ -95,10 +95,12 @@ class Partners extends Component {
             return (<tr id={partner.id} key={index}>
                     <th scope="row">{index + 1}</th>
                     <td>{partner.name}</td>
-                    <td>{partner.role}</td>
-                    <td>{partner.url}</td>
+                    <td>{partner.primary_contact}</td>
+                    <td>{partner.location}</td>
+                    <td>{partner.size}</td>
                     <td>{partner.user.firstName} {partner.user.lastName}</td>
                     <td>{partner.user.email}</td>
+                    <td>{partner.timestamps.createdAt.datePrettyShort}</td>
                 </tr>);
           });
 
@@ -147,15 +149,17 @@ class Partners extends Component {
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Talent Name</th>
-                                    <th scope="col">Talent Role</th>
-                                    <th scope="col">Personal URL</th>
-                                    <th scope="col">Referal FullName</th>
-                                    <th scope="col">Referal Email</th>
+                                    <th scope="col">Partner Name</th>
+                                    <th scope="col">Primary Contact</th>
+                                    <th scope="col">Partner Location</th>
+                                    <th scope="col">Company Size</th>
+                                    <th scope="col">Referrer Full Name</th>
+                                    <th scope="col">Referrer Email</th>
+                                    <th scope="col">Created At</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {(parseInt(currentPartners.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Guest Records</td></tr> : renderPartners)}
+                                {(parseInt(currentPartners.length, 10) === 0 ? <tr><td align="center" colSpan="10">No Records</td></tr> : renderPartners)}
                             </tbody>
                         </table>
                         {(
