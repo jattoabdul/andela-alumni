@@ -153,7 +153,7 @@ class Connections extends Component {
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Primary Person</th>
-                                    <th scope="col">Alternative Contact(bcakup)</th>
+                                    <th scope="col">Alternative Contact</th>
                                     <th scope="col">Andelan</th>
                                     <th scope="col">Purpose</th>
                                     <th scope="col">Network</th>
